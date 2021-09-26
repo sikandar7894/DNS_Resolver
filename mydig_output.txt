@@ -1,0 +1,65 @@
+
+Output1 :
+
+
+parasmalik@MacBook-Pro PartA_ass1 % ./mydig www.cs.stonybrook.edu A
+QUESTION SECTION:
+www.cs.stonybrook.edu IN A
+
+ANSWER SECTION:
+www.cs.stonybrook.edu. 900 IN CNAME live-compscisbu.pantheonsite.io.
+live-compscisbu.pantheonsite.io. 600 IN CNAME fe2.edge.pantheon.io.
+fe2.edge.pantheon.io. 300 IN A 23.185.0.2
+23.185.0.2
+
+
+Query time : 7995 ms
+WHEN:
+Thu Sep 23 2021 19:48:24 
+
+ 
+ 
+MESSAGE SIZE RECEIVED : 56 
+
+
+-----------------------------------------------------------------------------------------------------
+
+parasmalik@MacBook-Pro PartA_ass1 % ./mydig www.google.com MX      
+QUESTION SECTION:
+www.google.com IN MX
+
+ANSWER SECTION:
+google.com. 60 IN SOA ns1.google.com. dns-admin.google.com. 398442999 900 900 1800 60
+
+
+Query time : 272 ms
+WHEN:
+Thu Sep 23 2021 19:49:15 
+
+ 
+ 
+MESSAGE SIZE RECEIVED : 56 
+
+
+-------------------------------------------------------------------------------------------------
+
+QUESTION SECTION:
+www.netflix.com IN NS
+
+ANSWER SECTION:
+www.netflix.com. 300 IN CNAME www.dradis.netflix.com.
+www.dradis.netflix.com. 60 IN CNAME www.us-west-2.internal.dradis.netflix.com.
+www.us-west-2.internal.dradis.netflix.com. 60 IN CNAME dualstack.apiproxy-website-nlb-prod-1-bcf28d21f4bbcf2c.elb.us-west-2.amazonaws.com.
+elb.us-west-2.amazonaws.com. 60 IN SOA ns-1870.awsdns-41.co.uk. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 60
+
+
+Query time : 2155 ms
+WHEN:
+Thu Sep 23 2021 19:49:51 
+
+ 
+ 
+MESSAGE SIZE RECEIVED : 56
+
+--------------------------------------------------------------------------------------------
+

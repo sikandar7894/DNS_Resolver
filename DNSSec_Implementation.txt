@@ -1,0 +1,48 @@
+The address of root server is available on : http://data.iana.org/root-anchors/root-anchors.xml
+The hash keys for validating root servers is available on 
+#http://data.iana.org/root-anchors/root-anchors.xml
+
+Every time there are two UDP request being sent :
+1. with original rdtype(i.e A, MX, NS)
+2. with rdtype 'DNSKEY'
+
+Let it call response1 and response2 respectively
+
+I have used 3 types of data for my implementation:
+
+# Reference : https://www.cloudflare.com/en-gb/dns/dnssec/how-dnssec-works/
+
+1. RRSIG : Contains cryptographic signature
+2. DNSKEY : Contains a public signing key
+3. DS : contains the hash of DNSkey record
+
+
+Three level validation is done:
+
+Level1 validation :
+
+Used KSK of child (identfication is 257) present in its DNSKEY (present in response2.answer). Used the dns.dnssec.make_ds function to generate the hash of KSK and compared with parent's hash. Now appened the hash present in response1 authority section to perform the same validation for next level servers
+ 
+Level2:
+
+Verify the RRSIG of the requested RRset with the public ZSK.
+
+Level3:
+
+Verify the RRSIG of the DNSKEY RRset with the public KSK.
+
+IF DNSKEY not obtained in Level1 : DNSSEC not supported
+
+IF it failed in Level 2 or 3 Then DNSSec not verified
+
+Rest of the implementation is like a PartA resolver using a recursive function named recursive:
+
+For recursive DNS resolver, if have given preference to response.answer, response.authority if it have SOA, response.additional and then response.authority respectively
+
+If we have response.answer then it contains the ip address of our query and we will return it. If our response.answer contains cname then we again have to call the recursive DNS resolver with hostname now becoming that cname
+
+ELIF we have response.authorty server as SOA then we will return it (# This concept refered from piazza)
+
+ELIf we have response.additional it means we have the information of next level server which means we again have to call the recursive resolver with server_list as now the server list in additional. I have only used IPv4 servers in my code ( extracting using "in A")
+
+ELIf we have additional server name in response.authority then we have to find the ipv4 address of that server using recursive DNS resolver (with hostname now the server name in authority section )and pass this address as server list in the recursive DNS resolver.
